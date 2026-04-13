@@ -14,13 +14,18 @@
 
     <!-- Logo -->
     <a href="{{ routes.root_url }}" class="site-header__logo">
-      <img
-        src="{{ 'logo.png' | asset_url }}"
-        alt="CatchMeIfYouCan Resale Studio"
-        class="site-header__logo-img"
-        width=""
-        height=""
-      />
+      {% if section.settings.logo != blank %}
+        <img
+          src="{{ section.settings.logo | image_url: width: 930 }}"
+          alt="{{ section.settings.logo_alt | default: shop.name }}"
+          class="site-header__logo-img"
+          width="{{ section.settings.logo_width }}"
+          height=""
+          loading="eager"
+        />
+      {% else %}
+        <span class="site-header__logo-text">{{ shop.name }}</span>
+      {% endif %}
     </a>
 
     <!-- Desktop Nav -->
@@ -139,10 +144,39 @@
   "name": "Custom Header",
   "settings": [
     {
+      "type": "header",
+      "content": "Announcement Bar"
+    },
+    {
       "type": "text",
       "id": "announcement_text",
-      "label": "Announcement Bar Text",
+      "label": "Announcement Text",
       "default": "Discover Rare, Designer & Vintage Finds...Catch Them Before They're Gone"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "logo_alt",
+      "label": "Logo Alt Text",
+      "default": "CatchMeIfYouCan Resale Studio"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo Width (px)",
+      "min": 100,
+      "max": 465,
+      "step": 5,
+      "default": 465,
+      "unit": "px"
     }
   ],
   "presets": [
