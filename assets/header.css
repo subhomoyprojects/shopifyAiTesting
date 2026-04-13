@@ -1,0 +1,330 @@
+/* ============================================
+   CATCHMEIFYOUCAN RESALE STUDIO
+   Section: Header
+   File: header.css
+   Depends on: style.css
+   ============================================ */
+
+/* 1. ANNOUNCEMENT BAR */
+.announcement-bar {
+  width: 100%;
+  background-color: var(--announcement-bg);
+  padding: 0.55rem 1rem;
+  text-align: center;
+  position: relative;
+  z-index: var(--z-sticky);
+}
+
+.announcement-bar__text {
+  font-family:    var(--font-body);
+  font-size:      var(--announcement-font-size);
+  font-weight:    var(--font-weight-medium);
+  color:          var(--announcement-text);
+  letter-spacing: 0.04em;
+  line-height:    1.4;
+  margin: 0;
+}
+
+/* 2. SITE HEADER */
+.site-header {
+  width:            100%;
+  background-color: var(--nav-bg);
+  border-bottom:    1px solid var(--color-border);
+  position:         sticky;
+  top:              0;
+  z-index:          var(--z-sticky);
+  box-shadow:       var(--shadow-sm);
+}
+
+.site-header__inner {
+  display:         flex;
+  align-items:     center;
+  justify-content: space-between;
+  gap:             var(--space-xl);
+  max-width:       var(--container-max-width);
+  margin-inline:   auto;
+  padding:         0 var(--space-xl);
+  height:          var(--nav-height);
+}
+
+/* 3. LOGO */
+.site-header__logo {
+  display:        flex;
+  flex-direction: column;
+  gap:            2px;
+  flex-shrink:    0;
+  text-decoration: none;
+}
+
+.site-header__logo-name {
+  font-family:  var(--font-heading);
+  font-size:    var(--nav-logo-size);
+  font-weight:  var(--font-weight-bold);
+  color:        var(--color-text-heading);
+  line-height:  1.1;
+  white-space:  nowrap;
+}
+
+.site-header__logo-name span {
+  font-weight: var(--font-weight-regular);
+}
+
+.site-header__logo-tagline {
+  font-family:    var(--font-body);
+  font-size:      var(--nav-tagline-size);
+  font-weight:    var(--font-weight-semibold);
+  letter-spacing: var(--nav-tagline-spacing);
+  color:          var(--color-text-secondary);
+  text-transform: uppercase;
+  white-space:    nowrap;
+}
+
+/* 4. NAVIGATION */
+.site-header__nav {
+  display:         flex;
+  align-items:     center;
+  flex:            1;
+  justify-content: center;
+}
+
+.nav__list {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-xl);
+  list-style:  none;
+  margin:      0;
+  padding:     0;
+}
+
+.nav__item { position: relative; }
+
+.nav__link {
+  font-family:     var(--font-body);
+  font-size:       var(--font-size-small);
+  font-weight:     var(--font-weight-medium);
+  color:           var(--nav-link-color);
+  text-decoration: none;
+  letter-spacing:  0.02em;
+  padding-bottom:  4px;
+  position:        relative;
+  transition:      color var(--transition-base);
+}
+
+.nav__link::after {
+  content:          '';
+  position:         absolute;
+  bottom:           -2px;
+  left:             0;
+  width:            0;
+  height:           2px;
+  background-color: var(--color-accent);
+  border-radius:    var(--radius-pill);
+  transition:       width var(--transition-base);
+}
+
+.nav__link:hover { color: var(--nav-link-hover); }
+.nav__link:hover::after,
+.nav__link--active::after { width: 100%; }
+
+.nav__link--active {
+  color:       var(--nav-link-hover);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav__link--active::before {
+  content:          '';
+  position:         absolute;
+  bottom:           -8px;
+  left:             50%;
+  transform:        translateX(-50%);
+  width:            4px;
+  height:           4px;
+  border-radius:    50%;
+  background-color: var(--color-accent);
+}
+
+/* 5. ACTIONS */
+.site-header__actions {
+  display:     flex;
+  align-items: center;
+  gap:         var(--space-sm);
+  flex-shrink: 0;
+}
+
+.header-search {
+  display:          flex;
+  align-items:      center;
+  gap:              var(--space-sm);
+  background-color: var(--search-bg);
+  border:           1px solid var(--search-border);
+  border-radius:    var(--radius-pill);
+  height:           var(--search-height);
+  padding:          0 var(--space-md);
+  transition:       border-color var(--transition-base),
+                    box-shadow var(--transition-base);
+}
+
+.header-search:focus-within {
+  border-color: var(--color-accent);
+  box-shadow:   0 0 0 3px rgba(201, 168, 76, 0.15);
+}
+
+.header-search__input {
+  border:      none;
+  background:  transparent;
+  font-family: var(--font-body);
+  font-size:   var(--font-size-small);
+  color:       var(--color-text-primary);
+  width:       160px;
+  outline:     none;
+  caret-color: var(--color-accent);
+}
+
+.header-search__input::placeholder {
+  color: var(--color-text-secondary);
+}
+
+.header-search__btn {
+  display:         flex;
+  align-items:     center;
+  justify-content: center;
+  background:      none;
+  border:          none;
+  padding:         0;
+  cursor:          pointer;
+  color:           var(--color-text-secondary);
+  transition:      color var(--transition-fast);
+  flex-shrink:     0;
+}
+
+.header-search__btn:hover { color: var(--color-accent); }
+.header-search__btn svg { width: 16px; height: 16px; }
+
+.icon-btn {
+  position:         relative;
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  width:            var(--icon-btn-size);
+  height:           var(--icon-btn-size);
+  background-color: var(--icon-btn-bg);
+  border-radius:    var(--radius-pill);
+  border:           none;
+  cursor:           pointer;
+  color:            var(--color-text-primary);
+  transition:       background-color var(--transition-base),
+                    color var(--transition-base);
+  text-decoration:  none;
+}
+
+.icon-btn:hover {
+  background-color: var(--color-accent-light);
+  color:            var(--color-accent);
+}
+
+.icon-btn svg { width: 18px; height: 18px; }
+
+.icon-btn__badge {
+  position:         absolute;
+  top:              -4px;
+  right:            -4px;
+  min-width:        var(--badge-size);
+  height:           var(--badge-size);
+  background-color: var(--badge-bg);
+  color:            var(--badge-text);
+  font-family:      var(--font-body);
+  font-size:        0.6rem;
+  font-weight:      var(--font-weight-bold);
+  border-radius:    var(--radius-pill);
+  display:          flex;
+  align-items:      center;
+  justify-content:  center;
+  padding:          0 4px;
+  line-height:      1;
+}
+
+/* 6. HAMBURGER */
+.hamburger {
+  display:         none;
+  flex-direction:  column;
+  justify-content: center;
+  gap:             5px;
+  width:           var(--icon-btn-size);
+  height:          var(--icon-btn-size);
+  background:      none;
+  border:          none;
+  cursor:          pointer;
+  padding:         var(--space-sm);
+}
+
+.hamburger__line {
+  display:          block;
+  width:            100%;
+  height:           2px;
+  background-color: var(--color-text-primary);
+  border-radius:    var(--radius-pill);
+  transition:       transform var(--transition-base),
+                    opacity var(--transition-base);
+}
+
+.hamburger[aria-expanded="true"] .hamburger__line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger[aria-expanded="true"] .hamburger__line:nth-child(2) {
+  opacity: 0;
+}
+.hamburger[aria-expanded="true"] .hamburger__line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* 7. MOBILE NAV */
+.mobile-nav {
+  display:          none;
+  position:         fixed;
+  inset:            0;
+  background-color: var(--nav-bg);
+  z-index:          var(--z-modal);
+  padding:          var(--space-2xl) var(--space-xl);
+  flex-direction:   column;
+  gap:              var(--space-xl);
+  transform:        translateX(-100%);
+  transition:       transform var(--transition-slow);
+}
+
+.mobile-nav--open { transform: translateX(0); }
+
+.mobile-nav__list {
+  display:        flex;
+  flex-direction: column;
+  gap:            var(--space-lg);
+}
+
+.mobile-nav__link {
+  font-family: var(--font-heading);
+  font-size:   1.5rem;
+  color:       var(--color-text-heading);
+  transition:  color var(--transition-base);
+}
+
+.mobile-nav__link:hover { color: var(--color-accent); }
+
+/* 8. RESPONSIVE */
+@media (max-width: 1024px) {
+  .header-search__input { width: 120px; }
+  .nav__list { gap: var(--space-lg); }
+}
+
+@media (max-width: 768px) {
+  .site-header__nav { display: none; }
+  .header-search    { display: none; }
+  .hamburger        { display: flex; }
+  .mobile-nav       { display: flex; }
+  .site-header__inner { padding: 0 var(--space-md); }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --nav-height:     60px;
+    --nav-logo-size:  1.1rem;
+  }
+}
