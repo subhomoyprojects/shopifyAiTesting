@@ -13,7 +13,10 @@
       "type": "custom-header",
       "name": "Custom Header",
       "settings": {
-        "announcement_text": "Discover Rare, Designer & Vintage Finds...Catch Them Before They're Gone"
+        "announcement_text": "Discover Rare, Designer & Vintage Finds...Catch Them Before They're Gone",
+        "logo": "shopify://shop_images/logo_1aca8301-b625-4bf4-9cdd-c83ea86cd688.png",
+        "logo_alt": "CatchMeIfYouCan Resale Studio",
+        "logo_width": 465
       }
     },
     "image_banner": {
