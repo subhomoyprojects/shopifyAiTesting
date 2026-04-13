@@ -49,34 +49,17 @@
 
 /* 3. LOGO */
 .site-header__logo {
-  display:        flex;
-  flex-direction: column;
-  gap:            2px;
-  flex-shrink:    0;
+  display:         block;
+  flex-shrink:     0;
   text-decoration: none;
+  line-height:     0;
 }
 
-.site-header__logo-name {
-  font-family:  var(--font-heading);
-  font-size:    var(--nav-logo-size);
-  font-weight:  var(--font-weight-bold);
-  color:        var(--color-text-heading);
-  line-height:  1.1;
-  white-space:  nowrap;
-}
-
-.site-header__logo-name span {
-  font-weight: var(--font-weight-regular);
-}
-
-.site-header__logo-tagline {
-  font-family:    var(--font-body);
-  font-size:      var(--nav-tagline-size);
-  font-weight:    var(--font-weight-semibold);
-  letter-spacing: var(--nav-tagline-spacing);
-  color:          var(--color-text-secondary);
-  text-transform: uppercase;
-  white-space:    nowrap;
+.site-header__logo-img {
+  max-width:  465px;
+  width:      100%;
+  height:     auto;
+  display:    block;
 }
 
 /* 4. NAVIGATION */
@@ -96,7 +79,9 @@
   padding:     0;
 }
 
-.nav__item { position: relative; }
+.nav__item {
+  position: relative;
+}
 
 .nav__link {
   font-family:     var(--font-body);
@@ -110,28 +95,13 @@
   transition:      color var(--transition-base);
 }
 
+/* No underline — removed */
 .nav__link::after {
-  content:          '';
-  position:         absolute;
-  bottom:           -2px;
-  left:             0;
-  width:            0;
-  height:           2px;
-  background-color: var(--color-accent);
-  border-radius:    var(--radius-pill);
-  transition:       width var(--transition-base);
+  display: none;
 }
 
-.nav__link:hover { color: var(--nav-link-hover); }
-.nav__link:hover::after,
-.nav__link--active::after { width: 100%; }
-
-.nav__link--active {
-  color:       var(--nav-link-hover);
-  font-weight: var(--font-weight-semibold);
-}
-
-.nav__link--active::before {
+/* Dot indicator only */
+.nav__link::before {
   content:          '';
   position:         absolute;
   bottom:           -8px;
@@ -141,6 +111,27 @@
   height:           4px;
   border-radius:    50%;
   background-color: var(--color-accent);
+  opacity:          0;
+  transition:       opacity var(--transition-base);
+}
+
+/* Dot on hover */
+.nav__link:hover {
+  color: var(--nav-link-hover);
+}
+
+.nav__link:hover::before {
+  opacity: 1;
+}
+
+/* Dot always visible on active */
+.nav__link--active {
+  color:       var(--nav-link-hover);
+  font-weight: var(--font-weight-semibold);
+}
+
+.nav__link--active::before {
+  opacity: 1;
 }
 
 /* 5. ACTIONS */
@@ -197,8 +188,14 @@
   flex-shrink:     0;
 }
 
-.header-search__btn:hover { color: var(--color-accent); }
-.header-search__btn svg { width: 16px; height: 16px; }
+.header-search__btn:hover {
+  color: var(--color-accent);
+}
+
+.header-search__btn svg {
+  width:  16px;
+  height: 16px;
+}
 
 .icon-btn {
   position:         relative;
@@ -222,7 +219,10 @@
   color:            var(--color-accent);
 }
 
-.icon-btn svg { width: 18px; height: 18px; }
+.icon-btn svg {
+  width:  18px;
+  height: 18px;
+}
 
 .icon-btn__badge {
   position:         absolute;
@@ -291,7 +291,9 @@
   transition:       transform var(--transition-slow);
 }
 
-.mobile-nav--open { transform: translateX(0); }
+.mobile-nav--open {
+  transform: translateX(0);
+}
 
 .mobile-nav__list {
   display:        flex;
@@ -306,7 +308,9 @@
   transition:  color var(--transition-base);
 }
 
-.mobile-nav__link:hover { color: var(--color-accent); }
+.mobile-nav__link:hover {
+  color: var(--color-accent);
+}
 
 /* 8. RESPONSIVE */
 @media (max-width: 1024px) {
@@ -315,16 +319,20 @@
 }
 
 @media (max-width: 768px) {
-  .site-header__nav { display: none; }
-  .header-search    { display: none; }
-  .hamburger        { display: flex; }
-  .mobile-nav       { display: flex; }
+  .site-header__nav   { display: none; }
+  .header-search      { display: none; }
+  .hamburger          { display: flex; }
+  .mobile-nav         { display: flex; }
   .site-header__inner { padding: 0 var(--space-md); }
 }
 
 @media (max-width: 480px) {
   :root {
-    --nav-height:     60px;
-    --nav-logo-size:  1.1rem;
+    --nav-height:    60px;
+    --nav-logo-size: 1.1rem;
+  }
+
+  .site-header__logo-img {
+    max-width: 280px;
   }
 }
