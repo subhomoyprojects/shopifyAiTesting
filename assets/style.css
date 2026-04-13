@@ -48,6 +48,7 @@
   --color-border:           #E0D9CC;
   --color-tag-bg:           #F0E4C0;
   --color-tag-text:         #8B6914;
+  --color-bg-body:          #F7F0E9;
 
   /* --- Announcement Bar --- */
   --announcement-bg:        #B8973E;
@@ -165,7 +166,7 @@ body {
   font-weight:      var(--font-weight-regular);
   line-height:      var(--line-height-body);
   color:            var(--color-text-primary);
-  background-color: var(--color-bg-primary);
+  background-color: var(--color-bg-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
