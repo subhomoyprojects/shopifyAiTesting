@@ -3,16 +3,12 @@
    Global Stylesheet — style.css
    ============================================ */
 
-/* ---------- Google Fonts Import ---------- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* Note: Recoleta Alt is a premium font.
-   Replace the @font-face src with your
-   licensed file path when you provide it. */
 @font-face {
   font-family: 'Recoleta Alt';
-  src: url('../fonts/RecoletaAlt-Regular.woff2') format('woff2'),
-       url('../fonts/RecoletaAlt-Regular.woff') format('woff');
+  src: url('RecoletaAlt-Regular.woff2') format('woff2'),
+       url('RecoletaAlt-Regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -20,18 +16,19 @@
 
 @font-face {
   font-family: 'Recoleta Alt';
-  src: url('../fonts/RecoletaAlt-Bold.woff2') format('woff2'),
-       url('../fonts/RecoletaAlt-Bold.woff') format('woff');
+  src: url('RecoletaAlt-Bold.woff2') format('woff2'),
+       url('RecoletaAlt-Bold.woff') format('woff');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
-/* ---------- CSS Custom Properties (Variables) ---------- */
+/* ---------- CSS Variables ---------- */
 :root {
 
   /* --- Colors --- */
   --color-bg-primary:       #F5F0E8;
+  --color-bg-body:          #F7F0E9;
   --color-bg-dark:          #1C1712;
   --color-bg-card:          #FFFFFF;
   --color-bg-section-alt:   #EDE8DC;
@@ -48,7 +45,6 @@
   --color-border:           #E0D9CC;
   --color-tag-bg:           #F0E4C0;
   --color-tag-text:         #8B6914;
-  --color-bg-body:          #F7F0E9;
 
   /* --- Announcement Bar --- */
   --announcement-bg:        #B8973E;
@@ -145,7 +141,7 @@
   --z-toast:                500;
 }
 
-/* ---------- CSS Reset & Base ---------- */
+/* ---------- Reset & Base ---------- */
 *,
 *::before,
 *::after {
@@ -211,7 +207,7 @@ p {
   line-height: var(--line-height-body);
 }
 
-/* ---------- Layout Utilities ---------- */
+/* ---------- Layout ---------- */
 .container {
   width: 100%;
   max-width: var(--container-max-width);
@@ -219,20 +215,11 @@ p {
   padding: var(--container-padding);
 }
 
-.section {
-  padding-block: var(--section-padding-y);
-}
+.section        { padding-block: var(--section-padding-y); }
+.section--dark  { background-color: var(--color-bg-dark); color: var(--color-text-light); }
+.section--alt   { background-color: var(--color-bg-section-alt); }
 
-.section--dark {
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-light);
-}
-
-.section--alt {
-  background-color: var(--color-bg-section-alt);
-}
-
-/* ---------- Global Button Styles ---------- */
+/* ---------- Buttons ---------- */
 .btn {
   display:         inline-flex;
   align-items:     center;
@@ -284,17 +271,10 @@ p {
   color:            var(--color-text-heading);
 }
 
-.btn--sm {
-  padding:   0.4rem 1rem;
-  font-size: var(--font-size-xs);
-}
+.btn--sm { padding: 0.4rem 1rem; font-size: var(--font-size-xs); }
+.btn--lg { padding: 0.85rem 2rem; font-size: var(--font-size-body); }
 
-.btn--lg {
-  padding:   0.85rem 2rem;
-  font-size: var(--font-size-body);
-}
-
-/* ---------- Global Card Styles ---------- */
+/* ---------- Cards ---------- */
 .card {
   background-color: var(--color-bg-card);
   border-radius:    var(--radius-card);
@@ -308,15 +288,8 @@ p {
   transform:  translateY(-4px);
 }
 
-.card__image {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-}
-
-.card__body {
-  padding: var(--space-md) var(--space-lg);
-}
+.card__image   { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
+.card__body    { padding: var(--space-md) var(--space-lg); }
 
 .card__tag {
   display:          inline-block;
@@ -365,12 +338,12 @@ p {
   margin-top: var(--space-xs);
 }
 
-/* ---------- Grid Utilities ---------- */
-.grid { display: grid; gap: var(--grid-gap); }
-.grid--2 { grid-template-columns: repeat(2, 1fr); }
-.grid--3 { grid-template-columns: repeat(3, 1fr); }
-.grid--4 { grid-template-columns: repeat(4, 1fr); }
-.grid--5 { grid-template-columns: repeat(5, 1fr); }
+/* ---------- Grid ---------- */
+.grid     { display: grid; gap: var(--grid-gap); }
+.grid--2  { grid-template-columns: repeat(2, 1fr); }
+.grid--3  { grid-template-columns: repeat(3, 1fr); }
+.grid--4  { grid-template-columns: repeat(4, 1fr); }
+.grid--5  { grid-template-columns: repeat(5, 1fr); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1024px) {
@@ -385,8 +358,8 @@ p {
   }
   .grid--2,
   .grid--3,
-  .grid--4 { grid-template-columns: repeat(2, 1fr); }
-  .grid--5 { grid-template-columns: repeat(3, 1fr); }
+  .grid--4  { grid-template-columns: repeat(2, 1fr); }
+  .grid--5  { grid-template-columns: repeat(3, 1fr); }
   .section-header {
     flex-direction: column;
     align-items:    flex-start;
@@ -401,14 +374,14 @@ p {
   .grid--5 { grid-template-columns: 1fr; }
 }
 
-/* ---------- Utility Classes ---------- */
-.text-center  { text-align: center; }
-.text-left    { text-align: left; }
-.text-right   { text-align: right; }
-.text-accent  { color: var(--color-accent); }
-.text-light   { color: var(--color-text-light); }
-.text-muted   { color: var(--color-text-secondary); }
-.mt-auto      { margin-top: auto; }
+/* ---------- Utilities ---------- */
+.text-center { text-align: center; }
+.text-left   { text-align: left; }
+.text-right  { text-align: right; }
+.text-accent { color: var(--color-accent); }
+.text-light  { color: var(--color-text-light); }
+.text-muted  { color: var(--color-text-secondary); }
+.mt-auto     { margin-top: auto; }
 
 .sr-only {
   position: absolute;
