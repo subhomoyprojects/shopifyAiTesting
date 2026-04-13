@@ -1,0 +1,153 @@
+{{ 'style.css' | asset_url | stylesheet_tag }}
+{{ 'header.css' | asset_url | stylesheet_tag }}
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="announcement-bar">
+  <p class="announcement-bar__text">
+    {{ section.settings.announcement_text }}
+  </p>
+</div>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="site-header__inner">
+
+    <!-- Logo -->
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      <span class="site-header__logo-name">
+        CatchMeIfYouCan <span>Resale Studio</span>
+      </span>
+      <span class="site-header__logo-tagline">
+        Curated &bull; Concierge &bull; Consigned
+      </span>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="site-header__nav" aria-label="Main navigation">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="{{ routes.root_url }}"
+             class="nav__link {% if request.page_type == 'index' %}nav__link--active{% endif %}">
+            Home
+          </a>
+        </li>
+        <li class="nav__item">
+          <a href="{{ routes.collections_url }}"
+             class="nav__link {% if request.page_type == 'collection' %}nav__link--active{% endif %}">
+            Curated Finds
+          </a>
+        </li>
+        <li class="nav__item">
+          <a href="/pages/the-story"
+             class="nav__link {% if request.path == '/pages/the-story' %}nav__link--active{% endif %}">
+            The Story
+          </a>
+        </li>
+        <li class="nav__item">
+          <a href="/pages/connect"
+             class="nav__link {% if request.path == '/pages/connect' %}nav__link--active{% endif %}">
+            Connect
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Actions -->
+    <div class="site-header__actions">
+
+      <!-- Search -->
+      <form class="header-search" action="{{ routes.search_url }}" method="get" role="search">
+        <input
+          class="header-search__input"
+          type="search"
+          name="q"
+          placeholder="Search for products"
+          aria-label="Search for products"
+          value="{{ search.terms | escape }}"
+        />
+        <button class="header-search__btn" type="submit" aria-label="Submit search">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"/>
+            <path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
+          </svg>
+        </button>
+      </form>
+
+      <!-- Account -->
+      <a href="{{ routes.account_url }}" class="icon-btn" aria-label="Account">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round"
+                d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </a>
+
+      <!-- Cart -->
+      <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="Cart">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round"
+                d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path stroke-linecap="round" d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        {% if cart.item_count > 0 %}
+          <span class="icon-btn__badge" aria-hidden="true">
+            {{ cart.item_count }}
+          </span>
+        {% endif %}
+      </a>
+
+      <!-- Mobile Hamburger -->
+      <button class="hamburger"
+              aria-label="Open menu"
+              aria-expanded="false"
+              onclick="toggleMobileNav(this)">
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+        <span class="hamburger__line"></span>
+      </button>
+
+    </div>
+  </div>
+</header>
+
+<!-- MOBILE NAV DRAWER -->
+<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
+  <ul class="mobile-nav__list">
+    <li><a href="{{ routes.root_url }}" class="mobile-nav__link">Home</a></li>
+    <li><a href="{{ routes.collections_url }}" class="mobile-nav__link">Curated Finds</a></li>
+    <li><a href="/pages/the-story" class="mobile-nav__link">The Story</a></li>
+    <li><a href="/pages/connect" class="mobile-nav__link">Connect</a></li>
+  </ul>
+</nav>
+
+<script>
+  function toggleMobileNav(btn) {
+    const nav = document.getElementById('mobile-nav');
+    const isOpen = nav.classList.contains('mobile-nav--open');
+    nav.classList.toggle('mobile-nav--open', !isOpen);
+    btn.setAttribute('aria-expanded', String(!isOpen));
+  }
+</script>
+
+{% schema %}
+{
+  "name": "Custom Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Bar Text",
+      "default": "Discover Rare, Designer & Vintage Finds...Catch Them Before They're Gone"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Header"
+    }
+  ]
+}
+{% endschema %}
