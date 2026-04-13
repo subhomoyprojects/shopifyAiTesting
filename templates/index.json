@@ -9,6 +9,13 @@
  */
 {
   "sections": {
+    "custom_header_tN9P43": {
+      "type": "custom-header",
+      "name": "Custom Header",
+      "settings": {
+        "announcement_text": "Discover Rare, Designer & Vintage Finds...Catch Them Before They're Gone"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -78,6 +85,7 @@
     }
   },
   "order": [
+    "custom_header_tN9P43",
     "image_banner",
     "featured_collection"
   ]
