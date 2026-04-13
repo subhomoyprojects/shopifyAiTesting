@@ -1,182 +1,95 @@
-{{ 'style.css' | asset_url | stylesheet_tag }}
-{{ 'header.css' | asset_url | stylesheet_tag }}
+{{ 'custom-header.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'custom-header.js' | asset_url }}" defer></script>
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="announcement-bar">
-  <p class="announcement-bar__text">
-    {{ section.settings.announcement_text }}
-  </p>
-</div>
+<header class="custom-header {% if section.settings.transparent %}is-transparent{% endif %}">
+  
+  <!-- TOP ANNOUNCEMENT -->
+  {% if section.settings.show_announcement %}
+  <div class="header-top">
+    <div class="container">
+      <p>{{ section.settings.announcement_text }}</p>
+    </div>
+  </div>
+  {% endif %}
 
-<!-- SITE HEADER -->
-<header class="site-header">
-  <div class="site-header__inner">
+  <!-- MAIN HEADER -->
+  <div class="header-main container">
 
-    <!-- Logo -->
-    <a href="{{ routes.root_url }}" class="site-header__logo">
-      {% if section.settings.logo != blank %}
-        <img
-          src="{{ section.settings.logo | image_url: width: 930 }}"
-          alt="{{ section.settings.logo_alt | default: shop.name }}"
-          class="site-header__logo-img"
-          width="{{ section.settings.logo_width }}"
-          height=""
-          loading="eager"
-        />
-      {% else %}
-        <span class="site-header__logo-text">{{ shop.name }}</span>
-      {% endif %}
-    </a>
+    <!-- LEFT: LOGO -->
+    <div class="header-left">
+      <a href="{{ routes.root_url }}" class="header-logo">
+        {% if settings.logo != blank %}
+          <img src="{{ settings.logo | image_url }}" alt="{{ shop.name }}">
+        {% else %}
+          <span>{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
 
-    <!-- Desktop Nav -->
-    <nav class="site-header__nav" aria-label="Main navigation">
-      <ul class="nav__list">
-        <li class="nav__item">
-          <a href="{{ routes.root_url }}"
-             class="nav__link {% if request.page_type == 'index' %}nav__link--active{% endif %}">
-            Home
-          </a>
-        </li>
-        <li class="nav__item">
-          <a href="{{ routes.collections_url }}"
-             class="nav__link {% if request.page_type == 'collection' %}nav__link--active{% endif %}">
-            Curated Finds
-          </a>
-        </li>
-        <li class="nav__item">
-          <a href="/pages/the-story"
-             class="nav__link {% if request.path == '/pages/the-story' %}nav__link--active{% endif %}">
-            The Story
-          </a>
-        </li>
-        <li class="nav__item">
-          <a href="/pages/connect"
-             class="nav__link {% if request.path == '/pages/connect' %}nav__link--active{% endif %}">
-            Connect
-          </a>
-        </li>
+    <!-- CENTER: NAV -->
+    <nav class="header-nav">
+      <ul>
+        {% for link in section.settings.menu.links %}
+          <li>
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
       </ul>
     </nav>
 
-    <!-- Actions -->
-    <div class="site-header__actions">
+    <!-- RIGHT: ACTIONS -->
+    <div class="header-right">
 
-      <!-- Search -->
-      <form class="header-search" action="{{ routes.search_url }}" method="get" role="search">
-        <input
-          class="header-search__input"
-          type="search"
-          name="q"
-          placeholder="Search for products"
-          aria-label="Search for products"
-          value="{{ search.terms | escape }}"
-        />
-        <button class="header-search__btn" type="submit" aria-label="Submit search">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-               viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <circle cx="11" cy="11" r="8"/>
-            <path stroke-linecap="round" d="M21 21l-4.35-4.35"/>
-          </svg>
+      <!-- SEARCH -->
+      <form action="{{ routes.search_url }}" method="get" class="header-search">
+        <input type="text" name="q" placeholder="Search for products">
+        <button type="submit">
+          🔍
         </button>
       </form>
 
-      <!-- Account -->
-      <a href="{{ routes.account_url }}" class="icon-btn" aria-label="Account">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round"
-                d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
+      <!-- ACCOUNT -->
+      <a href="{{ routes.account_url }}" class="header-icon">
+        👤
       </a>
 
-      <!-- Cart -->
-      <a href="{{ routes.cart_url }}" class="icon-btn" aria-label="Cart">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none"
-             viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round"
-                d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
-          <line x1="3" y1="6" x2="21" y2="6"/>
-          <path stroke-linecap="round" d="M16 10a4 4 0 01-8 0"/>
-        </svg>
-        {% if cart.item_count > 0 %}
-          <span class="icon-btn__badge" aria-hidden="true">
-            {{ cart.item_count }}
-          </span>
-        {% endif %}
+      <!-- CART -->
+      <a href="{{ routes.cart_url }}" class="header-icon cart-icon">
+        🛒
+        <span class="cart-count">{{ cart.item_count }}</span>
       </a>
-
-      <!-- Mobile Hamburger -->
-      <button class="hamburger"
-              aria-label="Open menu"
-              aria-expanded="false"
-              onclick="toggleMobileNav(this)">
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-      </button>
 
     </div>
+
   </div>
 </header>
-
-<!-- MOBILE NAV DRAWER -->
-<nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation">
-  <ul class="mobile-nav__list">
-    <li><a href="{{ routes.root_url }}" class="mobile-nav__link">Home</a></li>
-    <li><a href="{{ routes.collections_url }}" class="mobile-nav__link">Curated Finds</a></li>
-    <li><a href="/pages/the-story" class="mobile-nav__link">The Story</a></li>
-    <li><a href="/pages/connect" class="mobile-nav__link">Connect</a></li>
-  </ul>
-</nav>
-
-<script>
-  function toggleMobileNav(btn) {
-    const nav = document.getElementById('mobile-nav');
-    const isOpen = nav.classList.contains('mobile-nav--open');
-    nav.classList.toggle('mobile-nav--open', !isOpen);
-    btn.setAttribute('aria-expanded', String(!isOpen));
-  }
-</script>
 
 {% schema %}
 {
   "name": "Custom Header",
   "settings": [
     {
-      "type": "header",
-      "content": "Announcement Bar"
+      "type": "checkbox",
+      "id": "transparent",
+      "label": "Enable Transparent Header",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show Announcement Bar",
+      "default": true
     },
     {
       "type": "text",
       "id": "announcement_text",
       "label": "Announcement Text",
-      "default": "Discover Rare, Designer & Vintage Finds...Catch Them Before They're Gone"
+      "default": "Discover Rare, Designer & Vintage Finds...Catch Them Before They’re Gone"
     },
     {
-      "type": "header",
-      "content": "Logo"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo Image"
-    },
-    {
-      "type": "text",
-      "id": "logo_alt",
-      "label": "Logo Alt Text",
-      "default": "CatchMeIfYouCan Resale Studio"
-    },
-    {
-      "type": "range",
-      "id": "logo_width",
-      "label": "Logo Width (px)",
-      "min": 100,
-      "max": 465,
-      "step": 5,
-      "default": 465,
-      "unit": "px"
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation Menu"
     }
   ],
   "presets": [
