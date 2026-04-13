@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "custom_header_hkBbAc": {
+      "type": "custom-header",
+      "name": "Custom Header",
+      "settings": {
+        "transparent": false,
+        "show_announcement": true,
+        "announcement_text": "Discover Rare, Designer & Vintage Finds...Catch Them Before They’re Gone",
+        "menu": "main-menu"
+      }
+    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -78,6 +88,7 @@
     }
   },
   "order": [
+    "custom_header_hkBbAc",
     "image_banner",
     "featured_collection"
   ]
